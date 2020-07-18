@@ -1,5 +1,7 @@
 # archivepp
 
+![badge](https://github.com/sarahkittyy/arcpp/workflows/build/badge.svg)
+
 A modern C++ interface over `libarchive`.
 
 ## Dependencies

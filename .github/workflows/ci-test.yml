@@ -1,0 +1,30 @@
+name: build
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    env:
+      CC: gcc-9
+      CXX: g++-9
+    steps:
+      - name: deps
+        run: |
+          git clone https://github.com/libarchive/libarchive
+          cmake libarchive
+          make
+          sudo make install
+      - uses: actions/checkout@v2
+      - name: generate
+        run: cmake -DBUILD_TESTS=ON ..
+        working-directory: ./build
+      - name: build
+        run: make
+        working-directory: ./build
+      - name: test
+        run: ./test/arcpp_test
+        working-directory: ./build
